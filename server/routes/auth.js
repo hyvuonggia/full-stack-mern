@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
 
         // return token
         const accessToken = jwt.sign({ userId: newUser._id }, process.env.ACCESS_TOKEN_SECRET)
-        console.log(accessToken);
+        // console.log(accessToken);
         return res.json({
             success: true,
             message: "User created successfully",

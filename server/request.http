@@ -1,7 +1,43 @@
-POST http://localhost:5000/api/auth/register
+POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
     "username": "hyvuonggia",
     "password": "giahy123"
 }
+
+
+###
+
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNjZlZThjYTk0YmM4ZmZiOGQ4NzEiLCJpYXQiOjE2NDMyODkwNjF9.W09awXDcRkDD-aIHcEyhjFzvrgfJ9O1CUHadSRj-nVo
+
+
+###
+
+GET http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNjZlZThjYTk0YmM4ZmZiOGQ4NzEiLCJpYXQiOjE2NDMyODkwNjF9.W09awXDcRkDD-aIHcEyhjFzvrgfJ9O1CUHadSRj-nVo
+
+
+###
+
+PUT http://localhost:5000/api/posts/61f2766f34be1375c0638a18
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNjZlZThjYTk0YmM4ZmZiOGQ4NzEiLCJpYXQiOjE2NDMyODkwNjF9.W09awXDcRkDD-aIHcEyhjFzvrgfJ9O1CUHadSRj-nVo
+
+{
+    "title": "Vue",
+    "description": "VUEEEEE",
+    "url": "https://vue.com",
+    "status": "LEARNING"
+}
+
+
+###
+
+DELETE http://localhost:5000/api/posts/61f2968fc6f761fde370e0d9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNjZlZThjYTk0YmM4ZmZiOGQ4NzEiLCJpYXQiOjE2NDMyODkwNjF9.W09awXDcRkDD-aIHcEyhjFzvrgfJ9O1CUHadSRj-nVo
+

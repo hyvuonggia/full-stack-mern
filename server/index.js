@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import * as authRoute from './routes/auth.js';
+import * as postRoute from './routes/post.js';
 
 const app = express();
 
@@ -19,6 +20,7 @@ async function connectDB() {
 connectDB();
 
 app.use('/api/auth', authRoute.default)
+app.use('/api/posts', postRoute.default)
 
 
 
