@@ -51,7 +51,7 @@ router.get('/', verifyToken, async (req, res) => {
 })
 
 /**
- * @route GET /api/posts/:id
+ * @route PUT /api/posts/:id
  * @desc Update post
  * @access private
  */
@@ -98,7 +98,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 })
 
 /**
- * @route GET /api/posts/:id
+ * @route DELETE /api/posts/:id
  * @desc Delete post
  * @access private
  */
