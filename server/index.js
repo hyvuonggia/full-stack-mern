@@ -1,7 +1,10 @@
 import express from 'express'
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
+import * as authRoute from './routes/auth.js';
 
 const app = express();
+
+app.use(express.json());
 
 async function connectDB() {
     try {
@@ -15,9 +18,7 @@ async function connectDB() {
 
 connectDB();
 
-app.get('/', (req, res) => {
-    res.send('Hello world')
-})
+app.use('/api/auth', authRoute.default)
 
 
 
