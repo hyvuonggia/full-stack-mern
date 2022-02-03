@@ -1,8 +1,7 @@
 import "./App.css";
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Route,
-    Switch,
     Routes,
 } from "react-router-dom";
 import Landing from "./components/layout/Landing";
@@ -10,18 +9,19 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import AuthContextProvider from "./contexts/AuthContext";
 import Dashboard from "./views/Dashboard";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
 
 function App() {
     return (
         <AuthContextProvider>
-            <Router>
+            <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                 </Routes>
-            </Router>
+            </BrowserRouter>
         </AuthContextProvider>
     );
 }

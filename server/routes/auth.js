@@ -1,8 +1,9 @@
 import express from 'express'
 import User from '../models/user.js'
-import argon2 from 'argon2'
+import argon2, { verify } from 'argon2'
 import { default as jwt } from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import verifyToken from '../middleware/auth.js'
 
 const router = express.Router()
 
@@ -95,4 +96,29 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal Server Error' })
     }
 })
+
+/**
+ * @route GET api/auth
+ * @desc Check if user is logged in
+ * @access public
+ */
+router.get('/', verifyToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId).select('-password')
+        if (!user) {
+            return res.status(400).json({
+                sccess: false,
+                message: 'User not found'
+            })
+        }
+        res.json({
+            success: true,
+            user: user
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' })
+    }
+})
+
 export default router;
