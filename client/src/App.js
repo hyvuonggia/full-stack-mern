@@ -8,17 +8,21 @@ import {
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import AuthContextProvider from "./contexts/AuthContext";
+import Dashboard from "./views/Dashboard";
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Landing />}/>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-            </Routes>
-        </Router>
+        <AuthContextProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path='/dashboard' element={<Dashboard />} />
+                </Routes>
+            </Router>
+        </AuthContextProvider>
     );
 }
 
