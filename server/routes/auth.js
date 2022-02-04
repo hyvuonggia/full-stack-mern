@@ -14,7 +14,6 @@ dotenv.config()
  * @desc Register a user
  * @access public
  */
-
 router.post('/register', async (req, res) => {
     const { username, password } = req.body
 

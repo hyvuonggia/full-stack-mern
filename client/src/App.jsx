@@ -19,7 +19,9 @@ function App() {
                     <Route path="/" element={<Landing />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route element={<ProtectedRoute />}>
+                        <Route path='/dashboard' element={<Dashboard />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </AuthContextProvider>
