@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import NavbarMenu from '../layout/NavbarMenu';
+import { Fragment } from 'react';
 
 const ProtectedRoute = () => {
     const { authState } = useContext(AuthContext);
@@ -17,10 +18,10 @@ const ProtectedRoute = () => {
     }
 
     return isAuthenticated ? (
-        <>
+        <Fragment>
             <NavbarMenu />
             <Outlet />
-        </>
+        </Fragment>
     ) : (
         <Navigate to='/login' />
     );

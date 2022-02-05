@@ -4,6 +4,7 @@ import { postReducer } from '../reducers/PostReducer.js';
 import {
     ADD_POST,
     DELETE_POST,
+    FIND_POST,
     POSTS_LOADED_FAIL,
     POSTS_LOADED_SUCCESS,
     UPDATE_POST,
@@ -15,10 +16,13 @@ export const PostContext = createContext();
 const PostContextProvider = ({ children }) => {
     // state
     const [postState, dispatch] = useReducer(postReducer, {
+        post: null,
         posts: [],
         postsLoading: true,
     });
     const [showAddPostModal, setShowAddPostModal] = useState(false);
+    const [showUpdatePostModal, setShowUpdatePostModal] = useState(false);
+
     const [showToast, setShowToast] = useState({
         show: false,
         message: '',
@@ -75,6 +79,7 @@ const PostContextProvider = ({ children }) => {
         }
     };
 
+    // update post
     const updatePost = async (updatedPost) => {
         try {
             const response = await axios.put(
@@ -95,15 +100,28 @@ const PostContextProvider = ({ children }) => {
         }
     };
 
+    // find post when user is updating post
+    const findPost = (postId) => {
+        const post = postState.posts.find((post) => post._id === postId);
+        dispatch({
+            type: FIND_POST,
+            payload: post,
+        });
+    };
+
     const postContextData = {
         postState: postState,
         getPosts: getPosts,
         showAddPostModal: showAddPostModal,
+        showUpdatePostModal: showUpdatePostModal,
         setShowAddPostModal: setShowAddPostModal,
         addPost: addPost,
         showToast: showToast,
         setShowToast: setShowToast,
         deletePost: deletePost,
+        updatePost: updatePost,
+        findPost: findPost,
+        setShowUpdatePostModal: setShowUpdatePostModal,
     };
 
     return (

@@ -5,15 +5,24 @@ import deleteIcon from '../../assets/trash.svg';
 import React from 'react';
 import { useContext } from 'react';
 import { PostContext } from '../../contexts/PostContext';
+import { Fragment } from 'react';
 
 const ActionButtons = ({ url, _id }) => {
-    const { deletePost } = useContext(PostContext);
+    const { deletePost, findPost, setShowUpdatePostModal } = useContext(PostContext);
+
+    const choosePost = (postId) => {
+        findPost(postId);
+        setShowUpdatePostModal(true)
+    };
     return (
-        <>
+        <Fragment>
             <Button className='post-button' href={url} target='_blank'>
                 <img src={playIcon} alt='play' width='32' height='32' />
             </Button>
-            <Button className='post-button'>
+            <Button
+                className='post-button'
+                onClick={choosePost.bind(this, _id)}
+            >
                 <img src={editIcon} alt='edit' width='24' height='24' />
             </Button>
             <Button
@@ -22,7 +31,7 @@ const ActionButtons = ({ url, _id }) => {
             >
                 <img src={deleteIcon} alt='delete' width='24' height='24' />
             </Button>
-        </>
+        </Fragment>
     );
 };
 

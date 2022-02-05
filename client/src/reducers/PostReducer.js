@@ -1,4 +1,4 @@
-import { ADD_POST, DELETE_POST, POSTS_LOADED_FAIL, POSTS_LOADED_SUCCESS, UPDATE_POST } from "./types.js";
+import { ADD_POST, DELETE_POST, FIND_POST, POSTS_LOADED_FAIL, POSTS_LOADED_SUCCESS, UPDATE_POST } from "./types.js";
 
 export const postReducer = (state, action) => {
     const { type, payload } = action
@@ -33,12 +33,15 @@ export const postReducer = (state, action) => {
                     return post
                 }
             })
-
             return {
                 ...state,
                 posts: newPosts
             }
-
+        case FIND_POST:
+            return {
+                ...state,
+                post: payload
+            }
 
         default:
             return state;
