@@ -1,4 +1,4 @@
-import { ADD_POST, POSTS_LOADED_FAIL, POSTS_LOADED_SUCCESS } from "./types.js";
+import { ADD_POST, DELETE_POST, POSTS_LOADED_FAIL, POSTS_LOADED_SUCCESS, UPDATE_POST } from "./types.js";
 
 export const postReducer = (state, action) => {
     const { type, payload } = action
@@ -19,6 +19,24 @@ export const postReducer = (state, action) => {
             return {
                 ...state,
                 posts: [...state.posts, payload],
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post._id !== payload)
+            }
+        case UPDATE_POST:
+            const newPosts = state.posts.map(post => {
+                if (post._id === payload._id) {
+                    return payload
+                } else {
+                    return post
+                }
+            })
+
+            return {
+                ...state,
+                posts: newPosts
             }
 
 

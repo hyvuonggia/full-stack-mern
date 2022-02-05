@@ -3,8 +3,10 @@ import { createContext, useReducer, useState } from 'react';
 import { postReducer } from '../reducers/PostReducer.js';
 import {
     ADD_POST,
+    DELETE_POST,
     POSTS_LOADED_FAIL,
     POSTS_LOADED_SUCCESS,
+    UPDATE_POST,
 } from '../reducers/types.js';
 import { apiUrl } from './constants.js';
 
@@ -58,6 +60,41 @@ const PostContextProvider = ({ children }) => {
         }
     };
 
+    // delete post
+    const deletePost = async (postId) => {
+        try {
+            const response = await axios.delete(`${apiUrl}/posts/${postId}`);
+            if (response.data.success) {
+                dispatch({
+                    type: DELETE_POST,
+                    payload: postId,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const updatePost = async (updatedPost) => {
+        try {
+            const response = await axios.put(
+                `${apiUrl}/posts/${updatedPost._id}`,
+                updatedPost,
+            );
+            if (response.data.success) {
+                dispatch({
+                    type: UPDATE_POST,
+                    payload: response.data.post,
+                });
+                return response.data;
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: 'Server error' };
+        }
+    };
+
     const postContextData = {
         postState: postState,
         getPosts: getPosts,
@@ -66,6 +103,7 @@ const PostContextProvider = ({ children }) => {
         addPost: addPost,
         showToast: showToast,
         setShowToast: setShowToast,
+        deletePost: deletePost,
     };
 
     return (

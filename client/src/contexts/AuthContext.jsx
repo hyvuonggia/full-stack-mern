@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import { authReducer } from '../reducers/AuthReducer';
-import { apiUrl, LOCAL_STORATE_TOKEN_NAME } from './constants';
+import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from './constants';
 import setAuthToken from '../utils/SetAuthToken.js';
 import { SET_AUTH } from '../reducers/types';
 
@@ -16,8 +16,8 @@ const AuthContextProvider = ({ children }) => {
 
     // authenticate user
     const loadUser = async () => {
-        if (localStorage[LOCAL_STORATE_TOKEN_NAME]) {
-            setAuthToken(localStorage[LOCAL_STORATE_TOKEN_NAME]);
+        if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
+            setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME]);
         }
 
         try {
@@ -32,7 +32,7 @@ const AuthContextProvider = ({ children }) => {
                 });
             }
         } catch (error) {
-            localStorage.removeItem(LOCAL_STORATE_TOKEN_NAME);
+            localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
             setAuthToken(null);
             dispatch({
                 type: SET_AUTH,
@@ -52,7 +52,7 @@ const AuthContextProvider = ({ children }) => {
             const response = await axios.post(`${apiUrl}/auth/login`, userForm);
             if (response.data.success) {
                 localStorage.setItem(
-                    LOCAL_STORATE_TOKEN_NAME,
+                    LOCAL_STORAGE_TOKEN_NAME,
                     response.data.accessToken,
                 );
                 await loadUser();
@@ -80,7 +80,7 @@ const AuthContextProvider = ({ children }) => {
             );
             if (response.data.success) {
                 localStorage.setItem(
-                    LOCAL_STORATE_TOKEN_NAME,
+                    LOCAL_STORAGE_TOKEN_NAME,
                     response.data.accessToken,
                 );
                 await loadUser();
@@ -101,7 +101,7 @@ const AuthContextProvider = ({ children }) => {
 
     // logout
     const logoutUser = () => {
-        localStorage.removeItem(LOCAL_STORATE_TOKEN_NAME);
+        localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
         dispatch({
             type: SET_AUTH,
             payload: {
