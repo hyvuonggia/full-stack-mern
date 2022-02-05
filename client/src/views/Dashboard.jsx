@@ -9,13 +9,18 @@ import Row from 'react-bootstrap/esm/Row';
 import SinglePost from '../components/posts/SinglePost';
 import AddPostModal from '../components/posts/AddPostModal';
 import addIcon from '../assets/plus-circle-fill.svg';
-import { OverlayTrigger } from 'react-bootstrap';
+import { OverlayTrigger, Toast } from 'react-bootstrap';
 import { Tooltip } from 'react-bootstrap';
 
 const Dashboard = () => {
     // load contexts
-    const { postState, getPosts, setShowAddPostModal } =
-        useContext(PostContext);
+    const {
+        postState,
+        getPosts,
+        setShowAddPostModal,
+        showToast,
+        setShowToast,
+    } = useContext(PostContext);
     const { posts, postsLoading } = postState;
     const {
         authState: {
@@ -24,6 +29,7 @@ const Dashboard = () => {
     } = useContext(AuthContext);
 
     // Start: get all posts
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => getPosts(), []);
 
     const handleClick = () => {
@@ -48,7 +54,7 @@ const Dashboard = () => {
                         Click the button below to track your first skill to
                         learn
                     </Card.Text>
-                    <Button variant='primary'>LearnIt!</Button>
+                    <Button variant='primary' onClick={setShowAddPostModal.bind(this, true)}>LearnIt!</Button>
                 </Card.Body>
             </Card>
         );
@@ -86,6 +92,27 @@ const Dashboard = () => {
         <>
             {body}
             <AddPostModal />
+            <Toast
+                show={showToast.show}
+                style={{
+                    position: 'fixed',
+                    top: '20%',
+                    right: '10px',
+                    width: 'fit-content',
+                }}
+                className={`bg-${showToast.type} text-white`}
+                onClose={setShowToast.bind(this, {
+                    show: false,
+                    message: '',
+                    type: null,
+                })}
+                delay={3000}
+                autohide
+            >
+                <Toast.Body>
+                    <strong>{showToast.message}</strong>
+                </Toast.Body>
+            </Toast>
         </>
     );
 };

@@ -6,7 +6,7 @@ import { PostContext } from '../../contexts/PostContext';
 
 const AddPostModal = () => {
     // context
-    const { showAddPostModal, setShowAddPostModal, addPost } =
+    const { showAddPostModal, setShowAddPostModal, addPost, setShowToast } =
         useContext(PostContext);
     const [newPost, setNewPost] = useState({
         title: '',
@@ -39,6 +39,11 @@ const AddPostModal = () => {
         event.preventDefault();
         const { success, message } = await addPost(newPost);
         resetAddPostModal();
+        setShowToast({
+            show: true,
+            message: message,
+            type: success ? 'success' : 'danger',
+        });
     };
 
     const closeDialog = () => {

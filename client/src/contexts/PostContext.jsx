@@ -17,6 +17,11 @@ const PostContextProvider = ({ children }) => {
         postsLoading: true,
     });
     const [showAddPostModal, setShowAddPostModal] = useState(false);
+    const [showToast, setShowToast] = useState({
+        show: false,
+        message: '',
+        type: null,
+    });
 
     // get all posts
     const getPosts = async () => {
@@ -59,6 +64,8 @@ const PostContextProvider = ({ children }) => {
         showAddPostModal: showAddPostModal,
         setShowAddPostModal: setShowAddPostModal,
         addPost: addPost,
+        showToast: showToast,
+        setShowToast: setShowToast,
     };
 
     return (
